@@ -5,7 +5,7 @@ using namespace std;
 
 
 void generate_small_numbers(int C, int max_denominator, vec<Frac> & numbers) {
-    for (int denom = 2; denom <= max_denominator; denom++) {
+    for (int denom = max_denominator; denom >= 1; denom--) {
         for (int num = -C * denom; num <= C * denom; num++) {
             Frac new_f = make_frac(num, denom);
             if (!count(numbers.begin(), numbers.end(), new_f))
@@ -15,7 +15,7 @@ void generate_small_numbers(int C, int max_denominator, vec<Frac> & numbers) {
 }
 
 void generate_small_matrices(int i, int j, int N, Matrix & curr_matrix, vec<Frac>& small_numbers, vec<Matrix> & small_matrices) {
-    if (j == N)   //shift
+    if (j == N)   // shift
         i++, j = 0;
     if (i == N) {
         if (GL(curr_matrix))
@@ -230,10 +230,10 @@ void generate_clique_for_2x2(vector<Matrix> & clique, const vec<Matrix> & small_
 }
 
 int main() {
-    int N = 2;
+    int N = 2, C = 2, max_denom = 4;
 
     vec<Frac> small_numbers;
-    generate_small_numbers(2, 4, small_numbers);
+    generate_small_numbers(C, max_denom, small_numbers);
     
     vec<Matrix> small_matrices;
     Matrix curr(2, vec<Frac>(2));
@@ -241,23 +241,24 @@ int main() {
     
     vector<Matrix> clique;
     generate_clique_for_2x2(clique, small_matrices, small_matrices.size());
+    
     //result:
 
-    // Matrix A1 = {{{7, 4}, {7, 4}}, 
-    //              {{7, 4}, {5, 4}}};
+    // Matrix A1 = {{{5, 3}, {5, 3}}, 
+    //              {{5, 3}, {4, 3}}};
     
-    // Matrix A2 = {{{7, 4}, {7, 4}}, 
-    //              {{5, 4}, {7, 4}}};
+    // Matrix A2 = {{{5, 3}, {5, 3}}, 
+    //              {{5, 3}, {2, 1}}};
     
-    // Matrix A3 = {{{-7, 4}, {-7, 4}}, 
-    //              {{7, 4}, {5, 4}}};
+    // Matrix A3 = {{{-5, 3}, {5, 3}}, 
+    //              {{-5, 3}, {4, 3}}};
     
-    // Matrix A4 = {{{-3, 2}, {-2, 1}}, 
-    //              {{-7, 4}, {-5, 4}}};
+    // Matrix A4 = {{{-5, 3}, {-5, 3}}, 
+    //              {{5, 3}, {-4, 3}}};
 
-    // Matrix X1 = {{{-7, 4}, {-7, 4}}, 
-    //              {{33}, 4}, {35, 4}}};
+    // Matrix X1 = {{{-5, 3}, {-5, 3}}, 
+    //              {{-13, 3}, {-4, 3}}};
     
-    // Matrix X2 = {{{-31, 12}, {-11, 12}}, 
-    //              {{-7, 4}, {-5, 4}}};
+    // Matrix X2 = {{{-5, 3}, {1, 1}}, 
+    //              {{-5, 3}, {4, 3}}};
 }
