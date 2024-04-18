@@ -1,5 +1,5 @@
 #include "matrices.h"
-#include "isomorfisms.h"
+#include "isomorphism.h"
 using namespace std;
 
 int main() {
