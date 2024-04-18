@@ -13,14 +13,14 @@ bool isomorphic_subgraphs_2_by_2(const vec<Matrix>& subg1, const vec<Matrix>& su
         p[i] = i;
     bool ok = false;
     // A_i = U B_{p_i} V
-    // U = B_{p_i} V (A_i)^-1   (1)
+    // U^-1 = B_{p_i} V (A_i)^-1   (1)
 
     // V = (x y
     //      z t)
-    // Have n wasy, how to express U, in term of x, y, z, t
+    // Have n wasy, how to express U^-1, in term of x, y, z, t
     std::set<Matrix> ways; // possible linear equasions on coefficients x, y, z, t
     do {
-        vec<Matrix> M; // express U coefficients in term of x, y, z, t 
+        vec<Matrix> M; // express U^-1 coefficients in term of x, y, z, t 
         for (int i = 0; i < n; i++) {
             Matrix A = subg2[p[i]], B = rev(subg1[i]); 
             Matrix U_coefficients  = {
