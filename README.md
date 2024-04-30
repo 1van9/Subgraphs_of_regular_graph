@@ -5,3 +5,4 @@
 - **isomorphism.h** - header with function isomorphic_subgraphs_2_by_2
 - **isomorphism.cpp** - example of using the previous header
 - **clique_series** - check isomorphy k(n, m) cliques
+- **clique-addition.cpp** - testing how four marixes from a clique can be complited to maximal clique in $\Gamma_2(\mathbb{Q})$
