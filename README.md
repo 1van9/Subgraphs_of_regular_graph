@@ -6,4 +6,4 @@
 - **isomorphism.cpp** - example of using the previous header
 - **clique_series** - check isomorphy k(n, m) cliques
 - **clique-addition.cpp** - testing how four marixes from a clique can be complited to maximal clique in $\Gamma_2(\mathbb{Q})$
-- **additionable-in-R.cpp** - find an example of a clique of size 4 that does not expand to a maximal clique by field \mathbb{Q}, but expands by field \mathbb{R} 
+- **addition-in-R.cpp** - find an example of a clique of size 4 that does not expand to a maximal clique by field $\mathbb{Q}$, but expands by field $\mathbb{R}$ 
