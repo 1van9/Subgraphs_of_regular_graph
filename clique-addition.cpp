@@ -76,28 +76,20 @@ void generate_clique_for_2x2(vec<int> & clique, const vec<Matrix<Poly<int>>> & s
         return;
     if (clique.size() < 4) {
         while (last_index--) {
-            if (!clique.size()) {
-                cout << last_index << endl;
-            }
             if (neighbours[last_index]) {
                 clique.push_back(last_index);
                 generate_clique_for_2x2(clique, small_matrices, last_index, g, neighbours & g[last_index]);
                 clique.pop_back();
             }
-            if (clique.size() == 0)
-                cout << "Good, " << last_index << endl;
         }
     } else if (clique.size() == 4) {
-        cout << "Kek ";
         vec<MatRf> cl;
         for (auto i : clique)
             cl.push_back(to_rf(small_matrices[i]));
         
         vec<MatRf> add = is_additionable(cl);
-        cout << add.size() << endl;
         for (auto el : add) {
             cl.push_back(el);
-            print(cl);
             int add = addition(cl);
             cout << "find! addition = " << add << endl;
             if (add == 1 && cnt--) {
@@ -127,7 +119,6 @@ void generate_clique_for_2x2(vec<int> & clique, const vec<Matrix<Poly<int>>> & s
 
 
 int main() {
-    // freopen("sample1.txt", "w", stdout);
     int N = 2;
     Poly<int> y({0, 1});
     vec<Poly<int>> small_numbers = {Poly<int>(0), Poly<int>(1), -Poly<int>(1), y, -y, y + y - Poly<int>(1), -y-y + Poly<int>(1)};
@@ -135,7 +126,6 @@ int main() {
     Matrix<Poly<int>> curr(2);
     vec<Matrix<Poly<int>>> small_matrices;
     generate_small_matrices(0, 0, N, curr, small_numbers, small_matrices);
-    // 1025   1028   1341  1378
 
     vec<bitset<sm_mat_sz>> g(sm_mat_sz);
     int edges = 0;
@@ -147,8 +137,7 @@ int main() {
             cout << "o";
         }
     }
-    cout << "Ok" << endl;
-    cout << edges / 2 << endl;
+    cout << "k" << endl;
     vec<int> clique;
     bitset<sm_mat_sz> nei;
     for (int i = 0; i < sm_mat_sz; i++)
