@@ -24,12 +24,12 @@ bool isomorphic_subgraphs_2_by_2(const vec<Matrix<T>>& subg1, const vec<Matrix<T
         vec<Matrix<T>> M; // express U coefficients in term of x, y, z, t 
         for (int i = 0; i < n; i++) {
             Matrix<T> A = subg2[p[i]], B = subg1[i].rev(); 
-            Matrix<T> U_coefficients  = {
+            Matrix<T> U_coefficients({
                 {A[0][0] * B[0][0], A[0][0] * B[1][0], A[0][1] * B[0][0], A[0][1] * B[1][0]},
                 {A[1][0] * B[0][0], A[1][0] * B[1][0], A[1][1] * B[0][0], A[1][1] * B[1][0]},
                 {A[0][0] * B[0][1], A[0][0] * B[1][1], A[0][1] * B[0][1], A[0][1] * B[1][1]},
                 {A[1][0] * B[0][1], A[1][0] * B[1][1], A[1][1] * B[0][1], A[1][1] * B[1][1]}
-            }; 
+            }); 
             M.push_back(U_coefficients);
         }
         Matrix<T> linear_equasions((n - 1) * M[0].size(), 4); // equasions on x, y, z, t
@@ -48,13 +48,13 @@ bool isomorphic_subgraphs_2_by_2(const vec<Matrix<T>>& subg1, const vec<Matrix<T
     do {
         vec<Matrix<T>> M;
         for (int i = 0; i < n; i++) {
-            Matrix<T> A = subg2[p[i]], B = (subg1[i].T()).Rev();
-            Matrix<T> U_coefficients = {
+            Matrix<T> A = subg2[p[i]], B = (subg1[i].t()).rev();
+            Matrix<T> U_coefficients({
                 {A[0][0] * B[0][0], A[0][0] * B[1][0], A[0][1] * B[0][0], A[0][1] * B[1][0]},
                 {A[1][0] * B[0][0], A[1][0] * B[1][0], A[1][1] * B[0][0], A[1][1] * B[1][0]},
                 {A[0][0] * B[0][1], A[0][0] * B[1][1], A[0][1] * B[0][1], A[0][1] * B[1][1]},
                 {A[1][0] * B[0][1], A[1][0] * B[1][1], A[1][1] * B[0][1], A[1][1] * B[1][1]}
-            }; 
+            }); 
             M.push_back(U_coefficients);
         }
         Matrix<T> linear_equasions((n - 1) * M[0].size(), 4);
