@@ -1,16 +1,21 @@
 #include "matrix.h"
+#include "Zp.h"
 #include "rational.h"
 #include "poly.h"
 #include "isomorphism.h"
 #include "clique-addition.h"
 
 using Q = Frac<long long>;
+using Z3 = Zp<3>;
 using Rf = Frac<Poly<Q>>;
 using MatRf = Matrix<Rf>;
 using MatQ = Matrix<Q>;
 using MatN = Matrix<long long>;
+using Mat3 = Matrix<Z3>;
 using CliqueRf = vec<MatRf>;
 using CliqueQ = vec<MatQ>;
+using Clique3 = vec<Mat3>;
+
 
 Rf x = Rf(vec<Q>({0, 1}));
 
@@ -53,4 +58,28 @@ MatRf to_rf(const Matrix<Poly<int>> & x) {
         for (int j = 0; j < x.m; j++)
             y[i][j] = to_rf(x[i][j]);
     return y;
+}
+
+template<typename T>
+void generate_small_matrices(int i, int j, int N, Matrix<T> & curr_matrix, const vec<T>& numbers, vec<Matrix<T>> & matrices) {
+    if (j == N)   //shift
+        i++, j = 0;
+    if (i == N) {
+        if (curr_matrix.GL())
+            matrices.push_back(curr_matrix);
+        return;
+    }
+    for (auto number : numbers) {
+        curr_matrix[i][j] = number;
+        generate_small_matrices(i, j + 1, N, curr_matrix, numbers, matrices);
+    }
+}
+
+
+template<typename T>
+vec<Matrix<T>> get_matrixes(const vec<T> & nums, int N) {
+    Matrix<T> curr(N, N);
+    vec<Matrix<T>> allm;
+    generate_small_matrices(0, 0, N, curr, nums, allm);
+    return allm;
 }
