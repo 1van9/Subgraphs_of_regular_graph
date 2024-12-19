@@ -1,15 +1,15 @@
 #include<iostream>
+// for working with numbers modulo p
 
-
-template<int P>
+template<long long P>
 struct Zp {
-    Zp(): x(0) {}
-    Zp(int i) : x(i % P) {
+    Zp() : x(0) {}
+    Zp(long long i) : x(i % P) {
         if (x < 0)
             x += P;
     }
     Zp(const Zp & a) : x(a.x) {}
-    Zp operator=(const Zp & a) {
+    Zp operator = (const Zp & a) {
         x = a.x;
         return a;
     }
@@ -39,17 +39,17 @@ struct Zp {
         x %= P;
         return *this;
     }
-    Zp operator^(int k) const {
+    Zp operator ^ (int k) const {
         if (k == 0)
             return Zp(1);
-        Zp val = ((*this) * (*this))^(k >> 1);
+        Zp val = ((*this) * (*this)) ^ (k >> 1);
         if (k & 1)
             return val * (*this);
         else
             return val; 
     }
     Zp operator / (const Zp & other) const {
-        return (*this) * (other^(P - 2));
+        return (*this) * (other ^ (P - 2));
     }
     Zp operator /= (const Zp & other) {
         *this = (*this / other);
@@ -59,11 +59,11 @@ struct Zp {
         return x;
     }
     
-    int x;
+    long long x;
 };
 
-template<int P>
-std::istream& operator >>(std::istream & in, Zp<P> & a) {
+template<long long P>
+std::istream & operator >> (std::istream & in, Zp<P> & a) {
     in >> a.x;
     a.x %= P;
     if (a.x < 0)
@@ -71,13 +71,13 @@ std::istream& operator >>(std::istream & in, Zp<P> & a) {
     return in;
 } 
 
-template<int P>
-std::ostream& operator << (std::ostream & out, const Zp<P> & a) {
+template<long long P>
+std::ostream & operator << (std::ostream & out, const Zp<P> & a) {
     out << a.x;
     return out;
 }
 
-template<int P>
+template<long long P>
 void swap(Zp<P> & a, Zp<P> & b) {
     a.x ^= b.x;
     b.x ^= a.x;
