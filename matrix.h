@@ -1,15 +1,13 @@
 #pragma once
-// header for matrices over 
+// header for matrices over any feild
 
 #include <iostream>
 #include <vector>
 #include <cassert>
 #define vec std::vector
 
-
 template<typename T>
 struct Matrix {
-
     Matrix() {}
     Matrix(size_t nn) : n(nn), m(nn) {
         a.resize(n, vec<T>(m));
@@ -21,45 +19,46 @@ struct Matrix {
         n = a.size();
         m = (n)? a[0].size() : 0;
     }
-    Matrix operator=(const Matrix & b) {
+    Matrix(const Matrix & b) : n(b.n), m(b.m), a(b.a) {}
+    Matrix operator = (const Matrix & b) {
         n = b.n, m = b.m;
         a = b.a;
         return b;
     }
-    Matrix operator+ (const Matrix & b) const {
+    Matrix operator + (const Matrix & b) const {
         Matrix c(n, m);
         for (size_t i = 0; i < n; i++)
             for (size_t j = 0; j < m; j++)
                 c.a[i][j] = a[i][j] + b.a[i][j];
         return c;
     }
-    Matrix operator- (const Matrix & b) const {
+    Matrix operator - (const Matrix & b) const {
         Matrix c(n, m);
         for (size_t i = 0; i < n; i++)
             for (size_t j = 0; j < m; j++)
                 c.a[i][j] = a[i][j] - b.a[i][j];
         return c;
     }
-    Matrix operator- () const {
+    Matrix operator - () const {
         Matrix c(n, m);
         for (size_t i = 0; i < n; i++)
             for (size_t j = 0; j < m; j++)
                 c.a[i][j] -= a[i][j];
         return c;
     }
-    Matrix operator+= (const Matrix & b) {
+    Matrix operator += (const Matrix & b) {
         for (size_t i = 0; i < n; i++)
             for (size_t j = 0; j < m; j++)
                 a[i][j] += b.a[i][j];
         return a;
     }
-    Matrix operator-= (const Matrix & b) {
+    Matrix operator -= (const Matrix & b) {
         for (size_t i = 0; i < n; i++)
             for (size_t j = 0; j < m; j++)
                 a[i][j] -= b.a[i][j];
         return a;
     }
-    Matrix operator* (const Matrix & b) const {
+    Matrix operator * (const Matrix & b) const {
         Matrix c(n, b.m);
         for (size_t i = 0; i < n; i++) 
             for (size_t j = 0; j < b.m; j++) 
@@ -67,14 +66,14 @@ struct Matrix {
                     c.a[i][j] += a[i][k] * b.a[k][j];
         return c;                
     }
-    Matrix operator*(const T& x) const {
+    Matrix operator * (const T& x) const {
         Matrix c(n, m);
         for (size_t i = 0; i < n; i++) 
             for (size_t j = 0; j < m; j++) 
                 c.a[i][j] = a[i][j] * x;
         return c;
     }
-    Matrix operator*= (const Matrix & b) {
+    Matrix operator *= (const Matrix & b) {
         Matrix c(n, b.m);
         for (size_t i = 0; i < n; i++) 
             for (size_t j = 0; j < b.m; j++) 
@@ -82,7 +81,7 @@ struct Matrix {
                     c.a[i][j] += a[i][k] * b.a[k][j];
         return a = c;                
     }
-    Matrix operator*=(const T& x) {
+    Matrix operator *= (const T& x) {
         for (size_t i = 0; i < n; i++) 
             for (size_t j = 0; j < m; j++) 
                 a[i][j] *= x;
@@ -106,10 +105,10 @@ struct Matrix {
     bool operator != (const Matrix & b) const {
         return a != b.a;
     }
-    vec<T>& operator[] (size_t i) {
+    vec<T>& operator [] (size_t i) {
         return a[i];
     }
-    const vec<T>& operator[] (size_t i) const {
+    const vec<T>& operator [] (size_t i) const {
         return a[i];
     }
     size_t size() {
@@ -132,10 +131,9 @@ struct Matrix {
                 curr++;
             if (curr == n) 
                 continue;
-            if (curr != curr_string) {
+            if (curr != curr_string)
                 for (size_t j = 0; j < m; j++)
                     swap(a[curr][j], a[curr_string][j]);
-            }
             T div = a[curr_string][i];
             det *= div;
             for (size_t j = 0; j < m; j++)
@@ -188,27 +186,20 @@ struct Matrix {
 };
 
 template<typename T>
-Matrix<T> operator* (const T & x, const Matrix<T> & a) {
+Matrix<T> operator * (const T & x, const Matrix<T> & a) {
     Matrix<T> c(a.n, a.m);
     for (size_t i = 0; i < a.n; i++) 
         for (size_t j = 0; j < a.m; j++) 
             c.a[i][j] = a[i][j] * x;
     return c;
-
 }
 
 template <typename T>
-std::ostream& operator<< (std::ostream& out, const Matrix<T> & a) {
+std::ostream& operator << (std::ostream& out, const Matrix<T> & a) {
     for (size_t i = 0; i < a.n; i++) {
-        for (auto el : a.a[i]) {
+        for (auto el : a.a[i])
             out << el << " ";
-        }
         out << std::endl;
     }
     return out; 
 }
-
-
-
-
-
