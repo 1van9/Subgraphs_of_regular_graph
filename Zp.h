@@ -13,28 +13,28 @@ struct Zp {
         x = a.x;
         return a;
     }
-    Zp operator + (const Zp& other) const {
+    Zp operator + (const Zp & other) const {
         return Zp(x + other.x);
     }
-    Zp operator - (const Zp& other) const {
+    Zp operator - (const Zp & other) const {
         return Zp(x - other.x);
     }
-    Zp operator += (const Zp& other) {
+    Zp operator += (const Zp & other) {
         x += other.x;
         if (x >= P)
             x -= P;
         return *this;
     }
-    Zp operator -= (const Zp& other) {
+    Zp operator -= (const Zp & other) {
         x -= other.x;
         if (x < 0)
             x += P;
         return *this;
     }
-    Zp operator * (const Zp& other) const {
+    Zp operator * (const Zp & other) const {
         return Zp(x * other.x);
     }
-    Zp operator *= (const Zp& other) {
+    Zp operator *= (const Zp & other) {
         x *= other.x;
         x %= P;
         return *this;
@@ -48,10 +48,10 @@ struct Zp {
         else
             return val; 
     }
-    Zp operator / (const Zp& other) const {
+    Zp operator / (const Zp & other) const {
         return (*this) * (other^(P - 2));
     }
-    Zp operator /= (const Zp& other) {
+    Zp operator /= (const Zp & other) {
         *this = (*this / other);
         return (*this);
     }
@@ -63,7 +63,7 @@ struct Zp {
 };
 
 template<int P>
-std::istream& operator >>(std::istream & in, Zp<P>& a) {
+std::istream& operator >>(std::istream & in, Zp<P> & a) {
     in >> a.x;
     a.x %= P;
     if (a.x < 0)
@@ -72,7 +72,7 @@ std::istream& operator >>(std::istream & in, Zp<P>& a) {
 } 
 
 template<int P>
-std::ostream& operator << (std::ostream & out, const Zp<P>& a) {
+std::ostream& operator << (std::ostream & out, const Zp<P> & a) {
     out << a.x;
     return out;
 }
