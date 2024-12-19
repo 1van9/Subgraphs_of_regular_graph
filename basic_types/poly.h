@@ -25,11 +25,11 @@ struct Poly {
         if (x)
             coefficients.emplace_back(x);
     }
-    Poly(const vector<T> & c) : coefficients(c) {
+    Poly(const vec<T> & c) : coefficients(c) {
         update();
     }
-    Poly(const vector<pair<size_t, T>> & c) {
-        size_t max_degree = max_element(c.begin(), c.end()) -> first;
+    Poly(const vec<std::pair<size_t, T>> & c) {
+        size_t max_degree = std::max_element(c.begin(), c.end()) -> first;
         coefficients.resize(max_degree + 1);
         for (auto [deg, coeff] : c) 
             coefficients[deg] = coeff;
@@ -41,7 +41,7 @@ struct Poly {
         return p;
     }
     Poly operator + (const Poly & p) const {
-        size_t max_degree = max(degree(), p.degree());
+        size_t max_degree = std::max(degree(), p.degree());
         Poly c;
         c.coefficients.resize(max_degree);
         for (size_t i = 0; i < max_degree; i++) {
@@ -108,7 +108,7 @@ struct Poly {
         *this = (*this) * p;
         return *this;
     }
-    pair<Poly, Poly> long_division(const Poly & p) const {
+    std::pair<Poly, Poly> long_division(const Poly & p) const {
         Poly remainder = *this;
         Poly quotient;
         if (p.degree() == 0)
@@ -264,7 +264,7 @@ Poly<T> sqrt(const Poly<T> & a) {
     if (a.degree() == 1)
         return Poly<T>(sqrt(a[0]));
     size_t len = a.degree() / 2;
-    vector<T> b(len + 1);
+    vec<T> b(len + 1);
     T last = sqrt(a.coefficients.back());
     b[len] = last;
     Poly<T> res(b);
