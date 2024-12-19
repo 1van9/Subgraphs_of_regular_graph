@@ -17,7 +17,7 @@ struct Matrix {
     }
     Matrix(const vec<vec<T>> & ar) : a(ar) {
         n = a.size();
-        m = (n)? a[0].size() : 0;
+        m = (n) ? a[0].size() : 0;
     }
     Matrix(const Matrix & b) : n(b.n), m(b.m), a(b.a) {}
     Matrix operator = (const Matrix & b) {
@@ -66,7 +66,7 @@ struct Matrix {
                     c.a[i][j] += a[i][k] * b.a[k][j];
         return c;                
     }
-    Matrix operator * (const T& x) const {
+    Matrix operator * (const T & x) const {
         Matrix c(n, m);
         for (size_t i = 0; i < n; i++) 
             for (size_t j = 0; j < m; j++) 
@@ -81,7 +81,7 @@ struct Matrix {
                     c.a[i][j] += a[i][k] * b.a[k][j];
         return a = c;                
     }
-    Matrix operator *= (const T& x) {
+    Matrix operator *= (const T & x) {
         for (size_t i = 0; i < n; i++) 
             for (size_t j = 0; j < m; j++) 
                 a[i][j] *= x;
@@ -105,10 +105,10 @@ struct Matrix {
     bool operator != (const Matrix & b) const {
         return a != b.a;
     }
-    vec<T>& operator [] (size_t i) {
+    vec<T> & operator [] (size_t i) {
         return a[i];
     }
-    const vec<T>& operator [] (size_t i) const {
+    const vec<T> & operator [] (size_t i) const {
         return a[i];
     }
     size_t size() {
@@ -195,7 +195,7 @@ Matrix<T> operator * (const T & x, const Matrix<T> & a) {
 }
 
 template <typename T>
-std::ostream& operator << (std::ostream& out, const Matrix<T> & a) {
+std::ostream & operator << (std::ostream & out, const Matrix<T> & a) {
     for (size_t i = 0; i < a.n; i++) {
         for (auto el : a.a[i])
             out << el << " ";
