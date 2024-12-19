@@ -233,14 +233,14 @@ std::ostream & operator << (std::ostream & out, const Poly<T> & p) {
         if (!p.coefficients[i]) 
             continue;
         if (first) {
-            if (p.coefficients[i] == -1ll)
+            if (p.coefficients[i] == T(-1))
                 out << '-';                
-            if (abs(p.coefficients[i]) != 1ll)
+            if (abs(p.coefficients[i]) != T(1))
                 out << p.coefficients[i];
             first = false;
         } else {
             out << " " << PSign(p.coefficients[i]) << " ";
-            if (abs(p.coefficients[i]) != 1ll)
+            if (abs(p.coefficients[i]) != T(1))
                 out << abs(p.coefficients[i]);
         }
         out << 'x';
