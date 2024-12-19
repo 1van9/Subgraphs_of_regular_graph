@@ -3,19 +3,13 @@
 
 template<int P>
 struct Zp {
-    Zp(): x(0) {
-        // std::cout << "empty" << std::endl;
-    }
+    Zp(): x(0) {}
     Zp(int i) : x(i % P) {
         if (x < 0)
             x += P;
-        // std::cout << i << ", x = " << x << " " << P << std::endl;
     }
-    Zp(const Zp & a) : x(a.x) {
-        // std::cout << "copy" << std::endl;
-    }
+    Zp(const Zp & a) : x(a.x) {}
     Zp operator=(const Zp & a) {
-        // std::cout << "get" << std::endl;
         x = a.x;
         return a;
     }
@@ -48,7 +42,7 @@ struct Zp {
     Zp operator^(int k) const {
         if (k == 0)
             return Zp(1);
-        Zp val = ((*this) * (*this))^(k / 2);
+        Zp val = ((*this) * (*this))^(k >> 1);
         if (k & 1)
             return val * (*this);
         else
@@ -71,6 +65,9 @@ struct Zp {
 template<int P>
 std::istream& operator >>(std::istream & in, Zp<P>& a) {
     in >> a.x;
+    a.x %= P;
+    if (a.x < 0)
+        a.x += P;
     return in;
 } 
 
