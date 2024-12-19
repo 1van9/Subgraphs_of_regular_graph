@@ -119,7 +119,7 @@ struct Poly {
                 continue;
             T coeff = remainder.coefficients[i - 1] / p.coefficients[p.degree() - 1];
             quotient.coefficients[i - p.degree()] = coeff;
-            remainder -= (p * Poly({make_pair(i - p.degree(), coeff)}));
+            remainder -= (p * Poly({std::make_pair(i - p.degree(), coeff)}));
         }
         quotient.update();
         remainder.update();
